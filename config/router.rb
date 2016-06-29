@@ -18,7 +18,7 @@ class Router
     [
       get('/users', UsersController, :index),
       get('/users/:id', UsersController, :show),
-      get('/users/:id', UsersController, )
+      delete('/users', UsersController, :show),
       get('/tweets', TweetsController, :index)
     ].find(&:itself)
   end

@@ -1,6 +1,27 @@
 class UsersController < ApplicationController
   def index
-    render User.all.to_json
+    if params[:first_name].nil? && params[:limit].nil? && param[:offset].nil?
+      render User.all.to_json
+
+    elsif params[:limit].nil? && params[:offset].nil?
+      first_names = []
+      User.all.each do |user|
+        if user.first_name[0].downcase == params[:first_name]
+          first_names << user
+        end
+      end
+      render first_names.to_json
+
+    elsif params[:first_name].nil?
+      users = User.all
+      params[:offset].to_i.times do |i|
+        users.shift
+      end
+      while users.count > params[:limit].to_i
+        users.pop
+      end
+      render users.to_json
+    end
   end
 
   def show
