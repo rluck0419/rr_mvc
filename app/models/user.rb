@@ -30,4 +30,4 @@ end
   User.new(Faker::Name.first_name, Faker::Name.last_name, (i+1).to_i, rand(18..50))
 end
 
-User.new("Sam", "Smith", "21", "80")
+User.new("Samuel", "Smithington", "21", "80")
