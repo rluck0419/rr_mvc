@@ -1,4 +1,22 @@
 class UsersController < ApplicationController
+  def show
+    if (1..User.all.count).include?(params[:id].to_i)
+      index = params[:id].to_i - 1
+      render User.all[index].to_json
+    else
+      render({ msg: "404 - not found" }.to_json, status: "404 NOT FOUND")
+    end
+  end
+
+  def delete
+    if (1..User.all.count).include?(params[:id].to_i)
+      index = params[:id].to_i - 1
+      render User.delete_from_all(index).to_json
+    else
+      render({ msg: "404 - not found" }.to_json, status: "404 NOT FOUND")
+    end
+  end
+
   def index
     users = User.all
 
@@ -15,24 +33,13 @@ class UsersController < ApplicationController
     if params[:offset]
       offset = params[:offset].to_i
     end
-    
+
     limit = -1
     if params[:limit]
       limit = params[:limit].to_i - 1
       limit += offset
     end
 
-    users_displayed = users[offset..limit]
-
-    render users_displayed.to_json
-  end
-
-  def show
-    if (1..User.all.count).include?(params[:id].to_i)
-      index = params[:id].to_i - 1
-      render User.all[index].to_json
-    else
-      render({ msg: "404 - not found" }.to_json, status: "404 NOT FOUND")
-    end
+    render users[offset..limit].to_json
   end
 end

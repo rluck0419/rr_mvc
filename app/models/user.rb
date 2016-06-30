@@ -24,10 +24,14 @@ class User
   def self.all
     @@all
   end
+
+  def self.delete_from_all(index)
+    @@all.delete_at(index)
+  end
 end
 
 20.times do |i|
-  User.new(Faker::Name.first_name, Faker::Name.last_name, (i+1).to_i, rand(18..50))
+  User.new(Faker::Name.first_name, Faker::Name.last_name, (i+1).to_s, rand(18..50).to_s)
 end
 
 User.new("Samuel", "Smithington", "21", "80")
