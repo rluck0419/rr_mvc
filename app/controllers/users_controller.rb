@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   def delete
     if (1..User.all.count).include?(params[:id].to_i)
       index = params[:id].to_i - 1
-      render User.delete_from_all(index).to_json
+      render User.all[index].to_json
+      # render({ msg: "200 - user deleted"}.to_json, status: "200 OK")
     else
       render({ msg: "404 - not found" }.to_json, status: "404 NOT FOUND")
     end
